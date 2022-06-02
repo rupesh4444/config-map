@@ -6,7 +6,7 @@ metadata:
   name: config-map-demo
 spec:
   containers:
-    - image: rupesh4444/test9-configmap
+    - image: rupesh4444/test11-configmap
       name: config-map-demo
       ports:
         - containerPort: 8000
@@ -27,7 +27,4 @@ spec:
     - name: config-map
       configMap:
         name: app-config
-        items:
-          - key: properties.yaml
-            path: properties.yaml
   restartPolicy: Never
