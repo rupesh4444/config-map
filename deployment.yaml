@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: config-map-demo
+  name: config-map-demo
+spec:
+  containers:
+    - image: rupesh4444/test9-configmap
+      name: config-map-demo
+      ports:
+        - containerPort: 8000
+      imagePullPolicy: IfNotPresent
+      env:
+        - name: SPRING_PROFILE
+          value: dev
+        - name: MESSAGE
+          valueFrom:
+            configMapKeyRef:
+              name: app-config
+              key: MESSAGE
+      volumeMounts:
+        - name: config-map
+          mountPath: /etc/config
+          readOnly: true
+  volumes:
+    - name: config-map
+      configMap:
+        name: app-config
+        items:
+          - key: properties.yaml
+            path: properties.yaml
+  restartPolicy: Never
